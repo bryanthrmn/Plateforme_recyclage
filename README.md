@@ -1,6 +1,7 @@
 
 # Plateforme de recyclage de déchets électroniques
 Plateforme de recyclage de déchets électronqiues
+
 Projet Java - Semestre 4 - EPF 2A
 
 ## Objectif
@@ -72,4 +73,5 @@ Après chaque collecte effectuée :
 
 ---
 EPF - Engineering School
+
 Gabriel BREMME & Bryan THIRIMANNA
