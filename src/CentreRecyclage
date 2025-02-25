@@ -1,0 +1,21 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package projet_s4;
+
+class Entreprise extends Utilisateur {
+    public Entreprise(String nom, String telephone, String adresse, String email, String motDePasse) {
+        super(nom, telephone, adresse, email, motDePasse);
+    }
+
+    @Override
+    public String toString() {
+        return "Entreprise," + super.toString();
+    }
+
+    public static Entreprise fromString(String data) {
+        String[] parts = data.split(",");
+        return new Entreprise(parts[1], parts[2], parts[3], parts[4], parts[5]);
+    }
+}
