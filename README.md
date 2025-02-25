@@ -66,9 +66,10 @@ Le programme est utilisé d’une part par les consommateurs et les entreprises 
 
 ---
 
-
+### Mis à jour
 Après chaque collecte effectuée :  
 - Les **listes des demandes de collecte** et les **historiques** sont **automatiquement mis à jour**.  
 
+---
 EPF - Engineering School
 Gabriel BREMME & Bryan THIRIMANNA
