@@ -1,0 +1,93 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+package projet_s4;
+
+import java.io.*;
+import java.util.*;
+import java.util.function.Function;
+
+public class PlateformeRecyclage {
+    private static Scanner scanner = new Scanner(System.in);
+    private static List<Utilisateur> utilisateurs = new ArrayList<>();
+    private static List<CentreRecyclage> centres = new ArrayList<>();
+    private static List<DemandeCollecte> demandes = new ArrayList<>();
+    private static Utilisateur utilisateurConnecte = null;
+
+    public static void main(String[] args) {
+        chargerDonnees();
+        while (true) {
+            if (utilisateurConnecte == null) afficherMenuPrincipal();
+            else afficherMenuUtilisateur();
+        }
+    }
+
+    private static void afficherMenuPrincipal() {
+        System.out.println("\n--- Plateforme de Recyclage ---");
+        System.out.println("1. Inscription");
+        System.out.println("2. Connexion");
+        System.out.println("3. Quitter");
+        System.out.print("Choisissez une option : ");
+        
+        int choix = scanner.nextInt();
+        scanner.nextLine();
+        switch (choix) {
+            case 1 -> inscription();
+            case 2 -> connexion();
+            case 3 -> { sauvegarderDonnees(); System.exit(0); }
+            default -> System.out.println("Choix invalide.");
+        }
+    }
+
+    private static void inscription() {
+        System.out.print("Nom : ");
+        String nom = scanner.nextLine();
+        System.out.print("Téléphone : ");
+        String telephone = scanner.nextLine();
+        System.out.print("Adresse : ");
+        String adresse = scanner.nextLine();
+        System.out.print("Email : ");
+        String email = scanner.nextLine();
+        System.out.print("Mot de passe : ");
+        String motDePasse = scanner.nextLine();
+
+        Utilisateur nouvelUtilisateur = new Utilisateur(nom, telephone, adresse, email, motDePasse);
+        utilisateurs.add(nouvelUtilisateur);
+        sauvegarderUtilisateurs();
+        System.out.println("Inscription réussie !");
+    }
+
+    private static void connexion() {
+        System.out.print("Email : ");
+        String email = scanner.nextLine();
+        System.out.print("Mot de passe : ");
+        String motDePasse = scanner.nextLine();
+
+        for (Utilisateur u : utilisateurs) {
+            if (u.getEmail().equals(email) && u.verifierMotDePasse(motDePasse)) {
+                utilisateurConnecte = u;
+                System.out.println("Connexion réussie !");
+                return;
+            }
+        }
+        System.out.println("Email ou mot de passe incorrect.");
+    }
+
+    private static void sauvegarderUtilisateurs() { sauvegarder("utilisateurs.txt", utilisateurs); }
+    private static void sauvegarderDemandes() { sauvegarder("demandes.txt", demandes); }
+    private static void chargerDonnees() { charger("utilisateurs.txt", utilisateurs, Utilisateur::fromString); charger("demandes.txt", demandes, DemandeCollecte::fromString); }
+
+    private static <T> void sauvegarder(String fichier, List<T> liste) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fichier))) {
+            for (T obj : liste) writer.println(obj);
+        } catch (IOException e) { System.out.println("Erreur de sauvegarde."); }
+    }
+
+    private static <T> void charger(String fichier, List<T> liste, Function<String, T> fromString) {
+        try (Scanner fileScanner = new Scanner(new File(fichier))) {
+            while (fileScanner.hasNextLine()) liste.add(fromString.apply(fileScanner.nextLine()));
+        } catch (FileNotFoundException e) { }
+    }
+}
