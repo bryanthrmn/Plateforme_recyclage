@@ -1,38 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// Bryan THIRIMANNA & Gabriel BREMME
+// Projet Java - Semestre 4 
+// EPF Engineering School
+
 package projet_s4;
 
-class DemandeCollecte {
-    private String emailDemandeur;
+public class DemandeCollecte {
+    private String emailEntreprise;
     private Dechet dechet;
     private boolean acceptee;
+    private String dateCollecte; // date de collecte fixée
+    private CentreRecyclage centre;
 
-    public DemandeCollecte(String emailDemandeur, Dechet dechet) {
-        this.emailDemandeur = emailDemandeur;
+    public DemandeCollecte(String emailEntreprise, Dechet dechet) {
+        this.emailEntreprise = emailEntreprise;
         this.dechet = dechet;
         this.acceptee = false;
+        this.dateCollecte = null;
+        this.centre = null;
     }
-
-    public void accepterDemande() {
+    
+    public void accepterDemande(String dateCollecte, CentreRecyclage centre) {
         this.acceptee = true;
+        this.dateCollecte = dateCollecte;
+        this.centre = centre;
     }
-
+    
+    // Getters nécessaires pour la sauvegarde/chargement
+    public String getEmailEntreprise() {
+        return emailEntreprise;
+    }
+    public Dechet getDechet() {
+        return dechet;
+    }
+    public boolean isAcceptee() {
+        return acceptee;
+    }
+    public String getDateCollecte() {
+        return dateCollecte;
+    }
+    public CentreRecyclage getCentre() {
+        return centre;
+    }
+    
     @Override
     public String toString() {
-        return emailDemandeur + "," + dechet + "," + acceptee;
-    }
-
-    public static DemandeCollecte fromString(String data) {
-        String[] parts = data.split(",");
-        Dechet dechet = new Dechet(parts[1], Integer.parseInt(parts[2]));
-        DemandeCollecte demande = new DemandeCollecte(parts[0], dechet);
-        demande.acceptee = Boolean.parseBoolean(parts[3]);
-        return demande;
-    }
-
-    public void afficherInfos() {
-        System.out.println("Demande de " + emailDemandeur + " | Déchet : " + dechet.getType() + " | Quantité : " + dechet.getQuantite() + " | Statut : " + (acceptee ? "Acceptée" : "En attente"));
+        return "DemandeCollecte: " + dechet.getType() + " (" + dechet.getQuantite() + ") - " +
+                (acceptee ? "Acceptée le " + dateCollecte + " par " + (centre != null ? centre.getNom() : "N/A") : "En attente");
     }
 }
