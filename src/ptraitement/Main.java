@@ -1,6 +1,10 @@
+// Bryan THIRIMANNA & Gabriel BREMME
+// Projet Java - Semestre 4 
+// EPF Engineering School
+
 package ptraitement;
 
-import pfiches.FAccueil;  // Assure-toi que l'importation de FAccueil est correcte
+import pfiches.FAccueil;  
 
 public class Main {
 
