@@ -128,10 +128,9 @@ public FAccueil() {
             String ligne;
             while ((ligne = reader.readLine()) != null) {
                 String[] parts = ligne.split(";");
-                if (parts.length < 6) continue;
-                
-                String statut = parts[5].trim();
-                String dateStr = parts[4].trim();
+                String[] parts = ligne.split(";", -1); // pour conserver les champs vides
+                String statut = parts[4].trim();
+                String dateStr = parts[3].trim();
                 
                 List<String> statutsValid = Arrays.asList("En attente", "À venir", "Accepté", "Planifié", "Refusé");
                 if (!statutsValid.contains(statut)) continue;
